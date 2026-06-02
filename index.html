@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BedrockPrints - Holoprints para Minecraft Bedrock</title>
+    <style>
+        /* Estilos Globais Inspirados no Minecraft */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #121212; /* Cinza bem escuro */
+            color: #E0E0E0;
+            padding-bottom: 60px;
+        }
+
+        /* Cabeçalho */
+        header {
+            background-color: #1A1A1A;
+            border-bottom: 4px solid #4A4A4A; /* Borda estilo bloco */
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        header h1 {
+            color: #55FF55; /* Verde clássico do Minecraft */
+            font-size: 2.5rem;
+            text-shadow: 2px 2px #004400;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: #AAAAAA;
+            font-size: 1.1rem;
+        }
+
+        /* Container Principal */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Seção de Ações (Botão de Enviar) */
+        .actions-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            border-left: 5px solid #55FF55;
+            padding-left: 10px;
+        }
+
+        .btn-toggle-form {
+            background-color: #388E3C; /* Verde Grama */
+            color: white;
+            border: none;
+            border-bottom: 4px solid #1B5E20; /* Sombra do botão */
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.1s ease;
+        }
+
+        .btn-toggle-form:active {
+            border-bottom-width: 0px;
+            margin-top: 4px;
+        }
+
+        /* Formulário Escondido/Expansível */
+        .form-section {
+            background-color: #1F1F1F;
+            border: 2px solid #4A4A4A;
+            padding: 25px;
+            margin-bottom: 4px;
+            border-radius: 8px;
+            display: none; /* Começa escondido */
+        }
+
+        .form-section.active {
+            display: block; /* Aparece quando clica */
+            margin-bottom: 4px;
+        }
+
+        .form-section h3 {
+            margin-bottom: 20px;
+            color: #55FF55;
+        }
+
+        /* Elementos do Formulário */
+        form label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #CCCCCC;
+        }
+
+        form input[type="text"],
+        form input[type="url"],
+        form select,
+        form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            background-color: #2D2D2D;
+            border: 2px solid #4A4A4A;
+            color: white;
+            border-radius: 4px;
+        }
+
+        form input[type="file"] {
+            margin-top: 8px;
+            display: block;
+        }
+
+        .btn-submit {
+            background-color: #388E3C;
+            color: white;
+            border: none;
+            border-bottom: 4px solid #1B5E20;
+            padding: 12px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            margin-top: 25px;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 4px;
+        }
+
+        .btn-submit:active {
+            border-bottom-width: 0px;
+            margin-top: 29px;
+        }
+
+        /* Galeria de Cards */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        /* O Card da Estrutura */
+        .card {
+            background-color: #1A1A1A;
+            border: 2px solid #333;
+            border-radius: 6px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #55FF55;
+        }
+
+        .card-img {
+            width: 100%;
+            height: 180px;
+            background-color: #2D2D2D;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card-tag {
+            background-color: #444;
+            color: #55FF55;
+            font-size: 0.8rem;
+            padding: 3px 8px;
+            border-radius: 4px;
+            align-self: flex-start;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+            color: #FFF;
+        }
+
+        .card-desc {
+            font-size: 0.9rem;
+            color: #AAAAAA;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .btn-download {
+            background-color: #00AA00;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            padding: 10px;
+            font-weight: bold;
+            border-radius: 4px;
+            border-bottom: 4px solid #004400;
+        }
+
+        .btn-download:active {
+            border-bottom-width: 0px;
+            transform: translateY(4px);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>BedrockPrints</h1>
+        <p>A central de Holoprints e estruturas para o seu mundo de Minecraft Bedrock</p>
+    </header>
+
+    <div class="container">
+        
+        <!-- Barra de Ações -->
+        <div class="actions-bar">
+            <h2 class="section-title">Explorar Holoprints</h2>
+            <!-- Botão que abre/fecha o formulário -->
+            <button class="btn-toggle-form" onclick="toggleForm()">+ Enviar Criação</button>
+        </div>
+
+        <!-- Seção do Formulário (Escondida por padrão) -->
+        <div class="form-section" id="formSection">
+            <h3>Envie seu projeto para a comunidade!</h3>
+            
+            <!-- LEMBRETE: Mude o link do "_next" abaixo para o seu link real do GitHub quando puder! -->
+            <form action="https://formsubmit.co/bedrockprints1@gmail.com" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_next" value="https://seu-usuario.github.io/bedrockprints/obrigado.html">
+
+                <label>Nome do Projeto:</label>
+                <input type="text" name="Nome_do_Projeto" placeholder="Ex: Farm de Ouro Eficiente" required>
+
+                <label>Categoria:</label>
+                <select name="Categoria" required>
+                    <option value="Farms">Farms</option>
+                    <option value="Redstone">Redstone</option>
+                    <option value="Construcoes">Construções</option>
+                </select>
+
+                <label>Link de Download Alternativo (Opcional):</label>
+                <input type="url" name="Link_Download" placeholder="Mediafire, Mega, Google Drive...">
+
+                <label>Descrição do Projeto:</label>
+                <textarea name="Descricao" rows="4" placeholder="Conte como funciona, rendimento por hora ou instruções de ativação..." required></textarea>
+
+                <label>Foto da Construção (.jpg/.png):</label>
+                <input type="file" name="Foto" accept="image/*" required>
+
+                <label>Arquivo do Holoprint (.mcstructure/.mcpack):</label>
+                <input type="file" name="Arquivo_Minecraft">
+
+                <button type="submit" class="btn-submit">Enviar para Moderação</button>
+            </form>
+        </div>
+
+        <!-- Galeria de Cards -->
+        <div class="gallery">
+
+            <!-- EXEMPLO DE CARD 1: FARM -->
+            <div class="card">
+                <!-- Imagem demonstrativa (pode substituir por um link real depois) -->
+                <img src="https://placehold.co/600x400/2D2D2D/55FF55?text=Farm+de+Ouro" alt="Farm de Ouro" class="card-img">
+                <div class="card-content">
+                    <span class="card-tag">Farms</span>
+                    <h3 class="card-title">Farm de Ouro 1.21</h3>
+                    <p class="card-desc">Uma farm super eficiente utilizando portais gigantes do Nether. Gera cerca de 45 níveis de XP em poucos minutos e muito lingote de ouro.</p>
+                    <!-- Link para o arquivo (você colocará o link aqui quando publicar) -->
+                    <a href="#" class="btn-download">Baixar .mcstructure</a>
+                </div>
+            </div>
+
+            <!-- EXEMPLO DE CARD 2: REDSTONE -->
+            <div class="card">
+                <img src="https://placehold.co/600x400/2D2D2D/55FF55?text=Porta+3x3" alt="Porta de Redstone" class="card-img">
+                <div class="card-content">
+                    <span class="card-tag">Redstone</span>
+                    <h3 class="card-title">Porta Piston 3x3 Compacta</h3>
+                    <p class="card-desc">Uma porta automática 3x3 totalmente sincronizada e sem fios aparentes. Ideal para a entrada da sua base secreta.</p>
+                    <a href="#" class="btn-download">Baixar .mcstructure</a>
+                </div>
+            </div>
+
+            <!-- EXEMPLO DE CARD 3: CONSTRUÇÃO -->
+            <div class="card">
+                <img src="https://placehold.co/600x400/2D2D2D/55FF55?text=Casa+Medieval" alt="Casa Medieval" class="card-img">
+                <div class="card-content">
+                    <span class="card-tag">Construções</span>
+                    <h3 class="card-title">Casa Medieval de Madeira</h3>
+                    <p class="card-desc">Uma linda casa inicial feita com blocos de carvalho escuro, pinheiro e pedregulho. Já mobiliada e com espaço para baús.</p>
+                    <a href="#" class="btn-download">Baixar .mcstructure</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Script Simples para Abrir/Fechar o Formulário -->
+    <script>
+        function toggleForm() {
+            const formSection = document.getElementById('formSection');
+            const btn = document.querySelector('.btn-toggle-form');
+            
+            // Alterna a classe 'active' para mostrar ou esconder
+            formSection.classList.toggle('active');
+            
+            // Muda o texto do botão para indicar se está aberto ou fechado
+            if (formSection.classList.contains('active')) {
+                btn.textContent = '✕ Fechar Painel';
+                btn.style.backgroundColor = '#C62828'; // Vermelho se estiver aberto
+                btn.style.borderBottomColor = '#5F0909';
+            } else {
+                btn.textContent = '+ Enviar Criação';
+                btn.style.backgroundColor = '#388E3C'; // Volta para o verde
+                btn.style.borderBottomColor = '#1B5E20';
+            }
+        }
+    </script>
+</body>
+</html>
