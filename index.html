@@ -14,59 +14,138 @@
         }
 
         body {
-            background-color: #121212; /* Cinza bem escuro */
+            background-color: #121212; /* Cinza Deepslate */
             color: #E0E0E0;
-            padding-bottom: 60px;
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        /* Cabeçalho */
-        header {
+        /* --- BARRA LATERAL (SIDEBAR) --- */
+        .sidebar {
+            width: 260px;
             background-color: #1A1A1A;
-            border-bottom: 4px solid #4A4A4A; /* Borda estilo bloco */
-            text-align: center;
-            padding: 30px 20px;
+            border-right: 4px solid #4A4A4A;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 100;
+            transition: transform 0.3s ease;
         }
 
-        header h1 {
-            color: #55FF55; /* Verde clássico do Minecraft */
-            font-size: 2.5rem;
+        .sidebar-header {
+            padding: 20px;
+            background-color: #111;
+            border-bottom: 2px solid #4A4A4A;
+            text-align: center;
+        }
+
+        .sidebar-header h1 {
+            color: #55FF55; /* Verde Minecraft */
+            font-size: 1.6rem;
             text-shadow: 2px 2px #004400;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 20px 10px;
+            flex-grow: 1;
+        }
+
+        .sidebar-menu li {
             margin-bottom: 10px;
         }
 
-        header p {
-            color: #AAAAAA;
-            font-size: 1.1rem;
+        .sidebar-menu a {
+            display: block;
+            color: #CCCCCC;
+            text-decoration: none;
+            padding: 12px 15px;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: all 0.2s;
+            border-left: 4px solid transparent;
         }
 
-        /* Container Principal */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+        .sidebar-menu a:hover {
+            background-color: #2D2D2D;
+            color: #55FF55;
+            border-left-color: #55FF55;
         }
 
-        /* Seção de Ações (Botão de Enviar) */
-        .actions-bar {
+        /* Estilo especial para o botão Apoiar */
+        .sidebar-menu .btn-apoiar {
+            color: #FF55FF; /* Rosa/Roxo do Live Pix / Encantamento */
+        }
+        .sidebar-menu .btn-apoiar:hover {
+            color: #FF55FF;
+            border-left-color: #FF55FF;
+            background-color: #2a162a;
+        }
+
+        /* --- CONTEÚDO PRINCIPAL --- */
+        .main-content {
+            margin-left: 260px; /* Dá espaço para a sidebar fixa */
+            flex-grow: 1;
+            padding: 30px;
+            width: calc(100% - 260px);
+        }
+
+        /* Botão de Menu para Celular */
+        .menu-toggle {
+            display: none;
+            background-color: #388E3C;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 110;
+            border-bottom: 3px solid #1B5E20;
+            border-radius: 4px;
+        }
+
+        /* Seções de Conteúdo */
+        .content-section {
+            display: none; /* Esconde todas por padrão */
+        }
+
+        .content-section.active {
+            display: block; /* Mostra apenas a ativa */
+        }
+
+        .section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 30px;
-            flex-wrap: wrap;
-            gap: 15px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 15px;
         }
 
         .section-title {
-            font-size: 1.8rem;
+            font-size: 2rem;
             border-left: 5px solid #55FF55;
-            padding-left: 10px;
+            padding-left: 15px;
         }
 
+        /* Cor especial na aba apoiar */
+        #apoiar .section-title {
+            border-left-color: #FF55FF;
+        }
+
+        /* Botão + Enviar Criação */
         .btn-toggle-form {
-            background-color: #388E3C; /* Verde Grama */
+            background-color: #388E3C;
             color: white;
             border: none;
-            border-bottom: 4px solid #1B5E20; /* Sombra do botão */
+            border-bottom: 4px solid #1B5E20;
             padding: 12px 24px;
             font-size: 1rem;
             font-weight: bold;
@@ -80,27 +159,31 @@
             margin-top: 4px;
         }
 
-        /* Formulário Escondido/Expansível */
+        /* --- FORMULÁRIO CORRIGIDO E ATUALIZADO --- */
         .form-section {
             background-color: #1F1F1F;
             border: 2px solid #4A4A4A;
             padding: 25px;
-            margin-bottom: 4px;
+            margin-bottom: 30px;
             border-radius: 8px;
-            display: none; /* Começa escondido */
+            display: none;
         }
 
         .form-section.active {
-            display: block; /* Aparece quando clica */
-            margin-bottom: 4px;
+            display: block;
         }
 
         .form-section h3 {
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             color: #55FF55;
         }
 
-        /* Elementos do Formulário */
+        .form-section p {
+            color: #AAA;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
         form label {
             display: block;
             margin-top: 15px;
@@ -121,11 +204,6 @@
             border-radius: 4px;
         }
 
-        form input[type="file"] {
-            margin-top: 8px;
-            display: block;
-        }
-
         .btn-submit {
             background-color: #388E3C;
             color: white;
@@ -140,20 +218,13 @@
             border-radius: 4px;
         }
 
-        .btn-submit:active {
-            border-bottom-width: 0px;
-            margin-top: 29px;
-        }
-
-        /* Galeria de Cards */
+        /* --- GALERIA E CARDS --- */
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 25px;
-            margin-top: 20px;
         }
 
-        /* O Card da Estrutura */
         .card {
             background-color: #1A1A1A;
             border: 2px solid #333;
@@ -183,18 +254,6 @@
             flex-grow: 1;
         }
 
-        .card-tag {
-            background-color: #444;
-            color: #55FF55;
-            font-size: 0.8rem;
-            padding: 3px 8px;
-            border-radius: 4px;
-            align-self: flex-start;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            font-weight: bold;
-        }
-
         .card-title {
             font-size: 1.3rem;
             margin-bottom: 8px;
@@ -219,33 +278,83 @@
             border-bottom: 4px solid #004400;
         }
 
-        .btn-download:active {
-            border-bottom-width: 0px;
-            transform: translateY(4px);
+        /* --- SEÇÃO APOIAR (LIVE PIX) --- */
+        .apoiar-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            text-align: center;
+            background-color: #1A1A1A;
+            padding: 30px;
+            border: 2px solid #4A4A4A;
+            border-radius: 8px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .apoiar-container p {
+            color: #CCC;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        .livepix-widget {
+            width: 100%;
+            max-width: 400px;
+            height: 480px;
+            border: none;
+            border-radius: 8px;
+            background-color: #111;
+        }
+
+        /* --- RESPONSIVIDADE (CELULAR) --- */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%); /* Esconde a sidebar no mobile */
+            }
+            .sidebar.open {
+                transform: translateX(0); /* Mostra ao clicar */
+            }
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+                padding: 20px;
+                padding-top: 80px;
+            }
+            .menu-toggle {
+                display: block; /* Mostra o botão hambúrguer */
+            }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>BedrockPrints</h1>
-        <p>A central de Holoprints e estruturas para o seu mundo de Minecraft Bedrock</p>
-    </header>
+    <!-- Botão de Menu para Celular -->
+    <button class="menu-toggle" onclick="toggleSidebar()">☰ Menu</button>
 
-    <div class="container">
-        
-        <!-- Barra de Ações -->
-        <div class="actions-bar">
-            <h2 class="section-title">Explorar Holoprints</h2>
-            <!-- Botão que abre/fecha o formulário -->
-            <button class="btn-toggle-form" onclick="toggleForm()">+ Enviar Criação</button>
+    <!-- 1. BARRA LATERAL (SIDEBAR) -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h1>BedrockPrints</h1>
         </div>
+        <ul class="sidebar-menu">
+            <li><a href="#" onclick="showSection('farms')">🌾 Farms</a></li>
+            <li><a href="#" onclick="showSection('redstone')">🔴 Redstone</a></li>
+            <li><a href="#" onclick="showSection('construcoes')">🧱 Construções</a></li>
+            <hr style="border: 1px solid #333; margin: 15px 0;">
+            <li><a href="#" class="btn-apoiar" onclick="showSection('apoiar')">💖 Apoiar Projeto</a></li>
+        </ul>
+    </nav>
 
-        <!-- Seção do Formulário (Escondida por padrão) -->
+    <!-- 2. CONTEÚDO PRINCIPAL -->
+    <main class="main-content">
+
+        <!-- FORMULÁRIO COMPARTILHADO (Aparece no topo da categoria ativa) -->
         <div class="form-section" id="formSection">
             <h3>Envie seu projeto para a comunidade!</h3>
+            <p><strong>Nota técnica:</strong> Faça o upload do seu arquivo (.mcstructure/.mcpack) no MediaFire, Mega ou Google Drive e cole o link abaixo. Isso evita erros de anexo.</p>
             
-            <!-- LEMBRETE: Mude o link do "_next" abaixo para o seu link real do GitHub quando puder! -->
             <form action="https://formsubmit.co/bedrockprints1@gmail.com" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="_captcha" value="false">
                 <input type="hidden" name="_next" value="https://seu-usuario.github.io/bedrockprints/obrigado.html">
@@ -260,82 +369,149 @@
                     <option value="Construcoes">Construções</option>
                 </select>
 
-                <label>Link de Download Alternativo (Opcional):</label>
-                <input type="url" name="Link_Download" placeholder="Mediafire, Mega, Google Drive...">
+                <label>Link de Download do Arquivo (MediaFire, Mega, Drive...):</label>
+                <input type="url" name="Link_Download" placeholder="https://..." required>
 
                 <label>Descrição do Projeto:</label>
-                <textarea name="Descricao" rows="4" placeholder="Conte como funciona, rendimento por hora ou instruções de ativação..." required></textarea>
+                <textarea name="Descricao" rows="4" placeholder="Conte como funciona ou dê instruções de ativação..." required></textarea>
 
                 <label>Foto da Construção (.jpg/.png):</label>
                 <input type="file" name="Foto" accept="image/*" required>
-
-                <label>Arquivo do Holoprint (.mcstructure/.mcpack):</label>
-                <input type="file" name="Arquivo_Minecraft">
 
                 <button type="submit" class="btn-submit">Enviar para Moderação</button>
             </form>
         </div>
 
-        <!-- Galeria de Cards -->
-        <div class="gallery">
 
-            <!-- EXEMPLO DE CARD 1: FARM -->
-            <div class="card">
-                <!-- Imagem demonstrativa (pode substituir por um link real depois) -->
-                <img src="https://placehold.co/600x400/2D2D2D/55FF55?text=Farm+de+Ouro" alt="Farm de Ouro" class="card-img">
-                <div class="card-content">
-                    <span class="card-tag">Farms</span>
-                    <h3 class="card-title">Farm de Ouro 1.21</h3>
-                    <p class="card-desc">Uma farm super eficiente utilizando portais gigantes do Nether. Gera cerca de 45 níveis de XP em poucos minutos e muito lingote de ouro.</p>
-                    <!-- Link para o arquivo (você colocará o link aqui quando publicar) -->
-                    <a href="#" class="btn-download">Baixar .mcstructure</a>
+        <!-- ================= ABA FARMS ================= -->
+        <section id="farms" class="content-section active">
+            <div class="section-header">
+                <h2 class="section-title">Farms</h2>
+                <button class="btn-toggle-form" onclick="toggleForm()">+ Enviar Criação</button>
+            </div>
+            <div class="gallery">
+                <!-- Card de Exemplo de Farm -->
+                <div class="card">
+                    <img src="https://placehold.co/600x400/2D2D2D/55FF55?text=Farm+de+Ouro" alt="Farm de Ouro" class="card-img">
+                    <div class="card-content">
+                        <h3 class="card-title">Farm de Ouro 1.21</h3>
+                        <p class="card-desc">Uma farm super eficiente utilizando portais do Nether. Muita experiência e ouro garantidos.</p>
+                        <a href="#" target="_blank" class="btn-download">Baixar Holoprint</a>
+                    </div>
                 </div>
             </div>
+        </section>
 
-            <!-- EXEMPLO DE CARD 2: REDSTONE -->
-            <div class="card">
-                <img src="https://placehold.co/600x400/2D2D2D/55FF55?text=Porta+3x3" alt="Porta de Redstone" class="card-img">
-                <div class="card-content">
-                    <span class="card-tag">Redstone</span>
-                    <h3 class="card-title">Porta Piston 3x3 Compacta</h3>
-                    <p class="card-desc">Uma porta automática 3x3 totalmente sincronizada e sem fios aparentes. Ideal para a entrada da sua base secreta.</p>
-                    <a href="#" class="btn-download">Baixar .mcstructure</a>
+
+        <!-- ================= ABA REDSTONE ================= -->
+        <section id="redstone" class="content-section">
+            <div class="section-header">
+                <h2 class="section-title">Redstone</h2>
+                <button class="btn-toggle-form" onclick="toggleForm()">+ Enviar Criação</button>
+            </div>
+            <div class="gallery">
+                <!-- Card de Exemplo de Redstone -->
+                <div class="card">
+                    <img src="https://placehold.co/600x400/2D2D2D/55FF55?text=Porta+3x3" alt="Porta de Redstone" class="card-img">
+                    <div class="card-content">
+                        <h3 class="card-title">Porta Piston 3x3 Compacta</h3>
+                        <p class="card-desc">Uma porta automática totalmente sincronizada e super rápida para esconder sua base.</p>
+                        <a href="#" target="_blank" class="btn-download">Baixar Holoprint</a>
+                    </div>
                 </div>
             </div>
+        </section>
 
-            <!-- EXEMPLO DE CARD 3: CONSTRUÇÃO -->
-            <div class="card">
-                <img src="https://placehold.co/600x400/2D2D2D/55FF55?text=Casa+Medieval" alt="Casa Medieval" class="card-img">
-                <div class="card-content">
-                    <span class="card-tag">Construções</span>
-                    <h3 class="card-title">Casa Medieval de Madeira</h3>
-                    <p class="card-desc">Uma linda casa inicial feita com blocos de carvalho escuro, pinheiro e pedregulho. Já mobiliada e com espaço para baús.</p>
-                    <a href="#" class="btn-download">Baixar .mcstructure</a>
+
+        <!-- ================= ABA CONSTRUÇÕES ================= -->
+        <section id="construcoes" class="content-section">
+            <div class="section-header">
+                <h2 class="section-title">Construções</h2>
+                <button class="btn-toggle-form" onclick="toggleForm()">+ Enviar Criação</button>
+            </div>
+            <div class="gallery">
+                <!-- Card de Exemplo de Construção -->
+                <div class="card">
+                    <img src="https://placehold.co/600x400/2D2D2D/55FF55?text=Casa+Medieval" alt="Casa Medieval" class="card-img">
+                    <div class="card-content">
+                        <h3 class="card-title">Casa Medieval de Madeira</h3>
+                        <p class="card-desc">Uma linda casa rústica perfeita para iniciar o seu novo mundo Survival.</p>
+                        <a href="#" target="_blank" class="btn-download">Baixar Holoprint</a>
+                    </div>
                 </div>
             </div>
+        </section>
 
-        </div>
-    </div>
 
-    <!-- Script Simples para Abrir/Fechar o Formulário -->
+        <!-- ================= ABA APOIAR (LIVE PIX) ================= -->
+        <section id="apoiar" class="content-section">
+            <div class="section-header">
+                <h2 class="section-title" style="color: #FF55FF;">Apoiar o Projeto</h2>
+            </div>
+            <div class="apoiar-container">
+                <p>Gosta do <strong>BedrockPrints</strong>? Ajude a manter o site ativo, rápido e com novas atualizações fazendo uma doação via Pix! Qualquer valor ajuda demais.</p>
+                
+                <!-- Widget Oficial do Live Pix Incorporado -->
+                <iframe class="livepix-widget" src="https://widget.livepix.gg/embed/d8b46904-4649-4f3d-882c-9647c47de80c" title="LivePix Donation Widget"></iframe>
+                
+                <p style="font-size: 0.85rem; color: #888;">Se o widget não carregar, <a href="https://livepix.gg/julyelpf" target="_blank" style="color: #FF55FF;">clique aqui para abrir o link direto</a>.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- SISTEMA SCRIPT DE NAVEGAÇÃO -->
     <script>
+        // Função para alternar as abas/categorias
+        function showSection(sectionId) {
+            // Esconde todas as seções
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(sec => sec.classList.remove('active'));
+            
+            // Mostra a seção desejada
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Fecha o formulário automaticamente se mudar de aba
+            document.getElementById('formSection').classList.remove('active');
+            resetFormButton();
+
+            // No celular, fecha a barra lateral após clicar
+            if (window.innerWidth <= 768) {
+                document.getElementById('sidebar').classList.remove('open');
+            }
+        }
+
+        // Função para abrir/fechar formulário
         function toggleForm() {
             const formSection = document.getElementById('formSection');
-            const btn = document.querySelector('.btn-toggle-form');
-            
-            // Alterna a classe 'active' para mostrar ou esconder
             formSection.classList.toggle('active');
             
-            // Muda o texto do botão para indicar se está aberto ou fechado
-            if (formSection.classList.contains('active')) {
-                btn.textContent = '✕ Fechar Painel';
-                btn.style.backgroundColor = '#C62828'; // Vermelho se estiver aberto
-                btn.style.borderBottomColor = '#5F0909';
-            } else {
+            const btns = document.querySelectorAll('.btn-toggle-form');
+            btns.forEach(btn => {
+                if (formSection.classList.contains('active')) {
+                    btn.textContent = '✕ Fechar Painel';
+                    btn.style.backgroundColor = '#C62828';
+                    btn.style.borderBottomColor = '#5F0909';
+                } else {
+                    btn.textContent = '+ Enviar Criação';
+                    btn.style.backgroundColor = '#388E3C';
+                    btn.style.borderBottomColor = '#1B5E20';
+                }
+            });
+        }
+
+        function resetFormButton() {
+            const btns = document.querySelectorAll('.btn-toggle-form');
+            btns.forEach(btn => {
                 btn.textContent = '+ Enviar Criação';
-                btn.style.backgroundColor = '#388E3C'; // Volta para o verde
+                btn.style.backgroundColor = '#388E3C';
                 btn.style.borderBottomColor = '#1B5E20';
-            }
+            });
+        }
+
+        // Função para abrir sidebar no celular
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
         }
     </script>
 </body>
