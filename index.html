@@ -159,7 +159,7 @@
             margin-top: 4px;
         }
 
-        /* --- FORMULÁRIO CORRIGIDO E ATUALIZADO --- */
+        /* --- FORMULÁRIO --- */
         .form-section {
             background-color: #1F1F1F;
             border: 2px solid #4A4A4A;
@@ -182,6 +182,7 @@
             color: #AAA;
             font-size: 0.9rem;
             margin-bottom: 20px;
+            line-height: 1.6;
         }
 
         form label {
@@ -202,6 +203,18 @@
             border: 2px solid #4A4A4A;
             color: white;
             border-radius: 4px;
+        }
+
+        /* Alerta de Erro Visual do Link */
+        .error-message {
+            display: none;
+            background-color: #5F0909;
+            color: #FF5555;
+            border: 2px solid #FF5555;
+            padding: 12px;
+            margin-top: 10px;
+            border-radius: 4px;
+            font-weight: bold;
         }
 
         .btn-submit {
@@ -311,10 +324,10 @@
         /* --- RESPONSIVIDADE (CELULAR) --- */
         @media (max-width: 768px) {
             .sidebar {
-                transform: translateX(-100%); /* Esconde a sidebar no mobile */
+                transform: translateX(-100%);
             }
             .sidebar.open {
-                transform: translateX(0); /* Mostra ao clicar */
+                transform: translateX(0);
             }
             .main-content {
                 margin-left: 0;
@@ -323,7 +336,7 @@
                 padding-top: 80px;
             }
             .menu-toggle {
-                display: block; /* Mostra o botão hambúrguer */
+                display: block;
             }
         }
     </style>
@@ -350,12 +363,15 @@
     <!-- 2. CONTEÚDO PRINCIPAL -->
     <main class="main-content">
 
-        <!-- FORMULÁRIO COMPARTILHADO (Aparece no topo da categoria ativa) -->
+        <!-- FORMULÁRIO COMPARTILHADO -->
         <div class="form-section" id="formSection">
             <h3>Envie seu projeto para a comunidade!</h3>
-            <p><strong>Nota técnica:</strong> Faça o upload do seu arquivo (.mcstructure/.mcpack) no MediaFire, Mega ou Google Drive e cole o link abaixo. Isso evita erros de anexo.</p>
+            <p>
+                <strong>Nota técnica:</strong> Faça o upload do seu arquivo (.mcstructure/.mcpack) no MediaFire, Mega ou Google Drive e cole o link abaixo. Isso evita erros de anexo.<br>
+                <strong style="color: #FF5555;">⚠️ ATENÇÃO: Não use encurtadores de link (AdFly, Bitly, Shorte.st, etc.). Envios com links encurtados serão bloqueados automaticamente.</strong>
+            </p>
             
-            <form action="https://formsubmit.co/bedrockprints1@gmail.com" method="POST" enctype="multipart/form-data">
+            <form id="uploadForm" action="https://formsubmit.co/bedrockprints1@gmail.com" method="POST" enctype="multipart/form-data" onsubmit="return validarLink()">
                 <input type="hidden" name="_captcha" value="false">
                 <input type="hidden" name="_next" value="https://seu-usuario.github.io/bedrockprints/obrigado.html">
 
@@ -370,7 +386,10 @@
                 </select>
 
                 <label>Link de Download do Arquivo (MediaFire, Mega, Drive...):</label>
-                <input type="url" name="Link_Download" placeholder="https://..." required>
+                <input type="url" id="linkDownload" name="Link_Download" placeholder="https://..." required>
+                
+                <!-- Caixa de mensagem de erro customizada -->
+                <div id="linkError" class="error-message">❌ Encurtadores de link não são permitidos! Por favor, use o link direto do MediaFire, Mega ou Google Drive.</div>
 
                 <label>Descrição do Projeto:</label>
                 <textarea name="Descricao" rows="4" placeholder="Conte como funciona ou dê instruções de ativação..." required></textarea>
@@ -390,7 +409,6 @@
                 <button class="btn-toggle-form" onclick="toggleForm()">+ Enviar Criação</button>
             </div>
             <div class="gallery">
-                <!-- Card de Exemplo de Farm -->
                 <div class="card">
                     <img src="https://placehold.co/600x400/2D2D2D/55FF55?text=Farm+de+Ouro" alt="Farm de Ouro" class="card-img">
                     <div class="card-content">
@@ -410,7 +428,6 @@
                 <button class="btn-toggle-form" onclick="toggleForm()">+ Enviar Criação</button>
             </div>
             <div class="gallery">
-                <!-- Card de Exemplo de Redstone -->
                 <div class="card">
                     <img src="https://placehold.co/600x400/2D2D2D/55FF55?text=Porta+3x3" alt="Porta de Redstone" class="card-img">
                     <div class="card-content">
@@ -430,7 +447,6 @@
                 <button class="btn-toggle-form" onclick="toggleForm()">+ Enviar Criação</button>
             </div>
             <div class="gallery">
-                <!-- Card de Exemplo de Construção -->
                 <div class="card">
                     <img src="https://placehold.co/600x400/2D2D2D/55FF55?text=Casa+Medieval" alt="Casa Medieval" class="card-img">
                     <div class="card-content">
@@ -443,39 +459,60 @@
         </section>
 
 
-        <!-- ================= ABA APOIAR (LIVE PIX) ================= -->
+        <!-- ================= ABA APOIAR ================= -->
         <section id="apoiar" class="content-section">
             <div class="section-header">
                 <h2 class="section-title" style="color: #FF55FF;">Apoiar o Projeto</h2>
             </div>
             <div class="apoiar-container">
                 <p>Gosta do <strong>BedrockPrints</strong>? Ajude a manter o site ativo, rápido e com novas atualizações fazendo uma doação via Pix! Qualquer valor ajuda demais.</p>
-                
-                <!-- Widget Oficial do Live Pix Incorporado -->
                 <iframe class="livepix-widget" src="https://widget.livepix.gg/embed/d8b46904-4649-4f3d-882c-9647c47de80c" title="LivePix Donation Widget"></iframe>
-                
-                <p style="font-size: 0.85rem; color: #888;">Se o widget não carregar, <a href="https://livepix.gg/julyelpf" target="_blank" style="color: #FF55FF;">clique aqui para abrir o link direto</a>.</p>
-            </div>
+                <div style="margin-top: 15px; text-align: center;">
+    <a href="https://livepix.gg/julyelpf" target="_blank" style="display: inline-block; background-color: #AA00AA; color: white; text-decoration: none; padding: 10px 20px; font-weight: bold; border-radius: 4px; border-bottom: 4px solid #440044; font-size: 0.9rem; transition: all 0.1s ease;" onmousedown="this.style.borderBottomWidth='0px'; this.style.marginTop='4px';" onmouseup="this.style.borderBottomWidth='4px'; this.style.marginTop='0px';" onmouseleave="this.style.borderBottomWidth='4px'; this.style.marginTop='0px';">
+        💜 Abrir Página de Apoio Direta
+    </a>
+    <p style="font-size: 0.75rem; color: #666; margin-top: 8px;">(Obrigado!)</p>
+</div>            </div>
         </section>
 
     </main>
 
-    <!-- SISTEMA SCRIPT DE NAVEGAÇÃO -->
+    <!-- SISTEMA SCRIPT DE NAVEGAÇÃO E VALIDAÇÃO -->
     <script>
+        // FUNÇÃO DE BLOQUEIO DE ENCURTADORES
+        function validarLink() {
+            const urlInput = document.getElementById('linkDownload').value.toLowerCase();
+            const errorBox = document.getElementById('linkError');
+            
+            // Lista dos encurtadores conhecidos para bloquear
+            const encurtadores = [
+                'bit.ly', 'adf.ly', 'adfly', 'cutt.ly', 'tinyurl.com', 'is.gd', 
+                'rebrand.ly', 'shorte.st', 'short.est', 't.co', 'ouo.io', 'shrinke.me',
+                'fly.io', 'migre.me', 'encurtador.com.br', 'bityli.com'
+            ];
+
+            // Verifica se o link inserido contém alguma das palavras da lista
+            const encontrouEncurtador = encurtadores.some(dominio => urlInput.includes(dominio));
+
+            if (encontrouEncurtador) {
+                errorBox.style.display = 'block'; // Mostra o erro na tela
+                document.getElementById('linkDownload').focus();
+                return false; // Trava o envio do formulário
+            }
+
+            errorBox.style.display = 'none'; // Esconde se estiver tudo ok
+            return true; // Permite o envio
+        }
+
         // Função para alternar as abas/categorias
         function showSection(sectionId) {
-            // Esconde todas as seções
             const sections = document.querySelectorAll('.content-section');
             sections.forEach(sec => sec.classList.remove('active'));
             
-            // Mostra a seção desejada
             document.getElementById(sectionId).classList.add('active');
-            
-            // Fecha o formulário automaticamente se mudar de aba
             document.getElementById('formSection').classList.remove('active');
             resetFormButton();
 
-            // No celular, fecha a barra lateral após clicar
             if (window.innerWidth <= 768) {
                 document.getElementById('sidebar').classList.remove('open');
             }
