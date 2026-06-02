@@ -135,10 +135,9 @@
             padding-left: 15px;
         }
 
-        /* Cor especial na aba apoiar */
-        #apoiar .section-title {
-            border-left-color: #FF55FF;
-        }
+        /* Cores especiais para as abas informativas */
+        #apoiar .section-title { border-left-color: #FF55FF; }
+        #como-funciona .section-title { border-left-color: #55FFFF; }
 
         /* Botão + Enviar Criação */
         .btn-toggle-form {
@@ -291,25 +290,37 @@
             border-bottom: 4px solid #004400;
         }
 
-        /* --- SEÇÃO APOIAR (LIVE PIX) --- */
-        .apoiar-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-            text-align: center;
+        /* --- SEÇÕES DE INFORMAÇÃO (APOIAR / COMO FUNCIONA) --- */
+        .info-container {
             background-color: #1A1A1A;
             padding: 30px;
             border: 2px solid #4A4A4A;
             border-radius: 8px;
-            max-width: 600px;
+            max-width: 700px;
             margin: 0 auto;
         }
 
-        .apoiar-container p {
+        .info-container p {
             color: #CCC;
             font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .info-steps {
+            margin: 20px 0;
+            padding-left: 20px;
+        }
+
+        .info-steps li {
+            margin-bottom: 15px;
+            color: #E0E0E0;
+            font-size: 1.05rem;
             line-height: 1.5;
+        }
+
+        .info-steps strong {
+            color: #55FF55;
         }
 
         .livepix-widget {
@@ -319,6 +330,72 @@
             border: none;
             border-radius: 8px;
             background-color: #111;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* --- POP-UP MODAL --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 200;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-box {
+            background-color: #1A1A1A;
+            border: 4px solid #4A4A4A;
+            border-radius: 8px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0px 0px 20px rgba(0,0,0,0.7);
+        }
+
+        .modal-box h2 {
+            color: #55FF55;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+            text-shadow: 2px 2px #004400;
+        }
+
+        .modal-box p {
+            color: #DDD;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .btn-modal-close {
+            background-color: #388E3C;
+            color: white;
+            border: none;
+            border-bottom: 4px solid #1B5E20;
+            padding: 10px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .btn-modal-close:active {
+            border-bottom-width: 0px;
+            margin-top: 4px;
         }
 
         /* --- RESPONSIVIDADE (CELULAR) --- */
@@ -339,14 +416,81 @@
                 display: block;
             }
         }
+
+        /* --- BLOCO DE DESTAQUE COM BRILHO ENCANTADO --- */
+        @keyframes brilhoTexto {
+            0% { text-shadow: 0 0 5px rgba(255, 85, 255, 0.4); color: #E0E0E0; }
+            50% { text-shadow: 0 0 15px rgba(255, 85, 255, 0.8), 0 0 25px rgba(85, 255, 255, 0.4); color: #FFF; }
+            100% { text-shadow: 0 0 5px rgba(255, 85, 255, 0.4); color: #E0E0E0; }
+        }
+
+        @keyframes purpurinaLink {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .alerta-encantado {
+            background: linear-gradient(135deg, rgba(42, 22, 42, 0.7), rgba(20, 20, 35, 0.7)); /* Fundo escuro misturando roxo e azul sutil */
+            border: 2px solid #FF55FF;
+            box-shadow: 0 0 15px rgba(255, 85, 255, 0.3);
+            padding: 20px;
+            margin: 25px auto;
+            border-radius: 8px;
+            max-width: 700px;
+            text-align: center;
+            line-height: 1.6;
+            animation: brilhoTexto 3s infinite ease-in-out;
+        }
+
+        .link-brilhante {
+            display: inline-block;
+            font-weight: bold;
+            text-decoration: none;
+            padding: 4px 10px;
+            margin: 0 4px;
+            border-radius: 4px;
+            /* Degradê animado imitando o brilho de encantamento do Minecraft */
+            background: linear-gradient(90deg, #FF55FF, #55FFFF, #FF55FF);
+            background-size: 200% auto;
+            color: #111 !important; /* Texto escuro para dar contraste no fundo brilhante */
+            text-shadow: none !important;
+            animation: purpurinaLink 2s linear infinite;
+            box-shadow: 0 0 10px rgba(255, 85, 255, 0.5);
+            transition: transform 0.2s;
+        }
+
+        .link-brilhante:hover {
+            box-shadow: 0 0 18px rgba(255, 85, 255, 0.9);
+            transform: scale(1.05);
+        }
+
+
     </style>
 </head>
 <body>
 
-    <!-- Botão de Menu para Celular -->
+    <div class="modal-overlay" id="welcomeModal">
+        <div class="modal-box">
+            <h2>Bem-vindo ao BedrockPrints! 🌾🧱</h2>
+            <p>Este é o ponto de encontro para jogadores de Minecraft Bedrock Edition compartilharem e baixarem <strong>Holoprints</strong> (estruturas prontas e arquivos de farm para facilitar seus mundos Survival).</p>
+            <p>Navegue pelas categorias na barra lateral ou envie suas próprias criações usando o botão de upload!</p>
+
+            <!-- Bloco de Destaque Flutuante e Encantado -->
+<div class="alerta-encantado">
+    <strong>
+        ⚠️ Ainda estamos em fase de desenvolvimento! Se você puder nos apoiar através do 
+        <a href="https://livepix.gg/julyelpf" target="_blank" class="link-brilhante">LivePix</a>, 
+        sua contribuição nos ajudará muito a manter e evoluir o projeto.
+    </strong>
+</div>
+
+            <button class="btn-modal-close" onclick="closeModal()">Entendi!</button>
+        </div>
+    </div>
+
     <button class="menu-toggle" onclick="toggleSidebar()">☰ Menu</button>
 
-    <!-- 1. BARRA LATERAL (SIDEBAR) -->
     <nav class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <h1>BedrockPrints</h1>
@@ -355,15 +499,14 @@
             <li><a href="#" onclick="showSection('farms')">🌾 Farms</a></li>
             <li><a href="#" onclick="showSection('redstone')">🔴 Redstone</a></li>
             <li><a href="#" onclick="showSection('construcoes')">🧱 Construções</a></li>
-            <hr style="border: 1px solid #333; margin: 15px 0;">
+            <hr style="border: 1px solid #333; margin: 10px 0;">
+            <li><a href="#" style="color: #55FFFF;" onclick="showSection('como-funciona')">❓ Como Funciona?</a></li>
             <li><a href="#" class="btn-apoiar" onclick="showSection('apoiar')">💖 Apoiar Projeto</a></li>
         </ul>
     </nav>
 
-    <!-- 2. CONTEÚDO PRINCIPAL -->
     <main class="main-content">
 
-        <!-- FORMULÁRIO COMPARTILHADO -->
         <div class="form-section" id="formSection">
             <h3>Envie seu projeto para a comunidade!</h3>
             <p>
@@ -388,7 +531,6 @@
                 <label>Link de Download do Arquivo (MediaFire, Mega, Drive...):</label>
                 <input type="url" id="linkDownload" name="Link_Download" placeholder="https://..." required>
                 
-                <!-- Caixa de mensagem de erro customizada -->
                 <div id="linkError" class="error-message">❌ Encurtadores de link não são permitidos! Por favor, use o link direto do MediaFire, Mega ou Google Drive.</div>
 
                 <label>Descrição do Projeto:</label>
@@ -402,7 +544,6 @@
         </div>
 
 
-        <!-- ================= ABA FARMS ================= -->
         <section id="farms" class="content-section active">
             <div class="section-header">
                 <h2 class="section-title">Farms</h2>
@@ -421,7 +562,6 @@
         </section>
 
 
-        <!-- ================= ABA REDSTONE ================= -->
         <section id="redstone" class="content-section">
             <div class="section-header">
                 <h2 class="section-title">Redstone</h2>
@@ -440,7 +580,6 @@
         </section>
 
 
-        <!-- ================= ABA CONSTRUÇÕES ================= -->
         <section id="construcoes" class="content-section">
             <div class="section-header">
                 <h2 class="section-title">Construções</h2>
@@ -459,49 +598,84 @@
         </section>
 
 
-        <!-- ================= ABA APOIAR ================= -->
+        <section id="como-funciona" class="content-section">
+            <div class="section-header">
+                <h2 class="section-title" style="color: #55FFFF;">Como Funciona o Site?</h2>
+            </div>
+            <div class="info-container">
+                <p>O <strong>BedrockPrints</strong> foi criado para simplificar o compartilhamento de projetos técnicos e estéticos construídos especificamente para o Minecraft Bedrock Edition.</p>
+                
+                <p>Aqui está o passo a passo de como tirar proveito da plataforma:</p>
+                <ol class="info-steps">
+                    <li><strong>Baixando Projetos:</strong> Escolha uma categoria (Farms, Redstone ou Construções) e clique em <em>"Baixar Holoprint"</em>. O link te levará ao arquivo direto disponibilizado pelo criador.</li>
+                    <li><strong>Enviando seu Projeto:</strong> Clique no botão verde <em>"+ Enviar Criação"</em> presente em qualquer categoria.</li>
+                    <li><strong>Hospedagem Externa:</strong> Para garantir que arquivos de qualquer tamanho cheguem aos usuários, faça upload do seu arquivo de estrutura (.mcstructure ou .mcpack) em plataformas gratuitas como Google Drive ou MediaFire, e cole o link direto no formulário.</li>
+                    <li><strong>Moderação de Segurança:</strong> Após enviar, nossa equipe analisa o link para garantir que ele está funcionando, livre de vírus e que não contém encurtadores com anúncios abusivos. Uma vez aprovado, seu card aparece no site!</li>
+                   <!-- Bloco de Destaque Flutuante e Encantado -->
+<div class="alerta-encantado">
+    <strong>
+        ⚠️ Ainda estamos em fase de desenvolvimento! Se você puder nos apoiar através do 
+        <a href="https://livepix.gg/julyelpf" target="_blank" class="link-brilhante">LivePix</a>, 
+        sua contribuição nos ajudará muito a manter e evoluir o projeto.
+    </strong>
+</div>
+                </ol>
+            </div>
+        </section>
+
+
         <section id="apoiar" class="content-section">
             <div class="section-header">
                 <h2 class="section-title" style="color: #FF55FF;">Apoiar o Projeto</h2>
             </div>
-            <div class="apoiar-container">
+            <div class="info-container">
                 <p>Gosta do <strong>BedrockPrints</strong>? Ajude a manter o site ativo, rápido e com novas atualizações fazendo uma doação via Pix! Qualquer valor ajuda demais.</p>
+                
                 <iframe class="livepix-widget" src="https://widget.livepix.gg/embed/d8b46904-4649-4f3d-882c-9647c47de80c" title="LivePix Donation Widget"></iframe>
-                <div style="margin-top: 15px; text-align: center;">
-    <a href="https://livepix.gg/julyelpf" target="_blank" style="display: inline-block; background-color: #AA00AA; color: white; text-decoration: none; padding: 10px 20px; font-weight: bold; border-radius: 4px; border-bottom: 4px solid #440044; font-size: 0.9rem; transition: all 0.1s ease;" onmousedown="this.style.borderBottomWidth='0px'; this.style.marginTop='4px';" onmouseup="this.style.borderBottomWidth='4px'; this.style.marginTop='0px';" onmouseleave="this.style.borderBottomWidth='4px'; this.style.marginTop='0px';">
-        💜 Abrir Página de Apoio Direta
-    </a>
-    <p style="font-size: 0.75rem; color: #666; margin-top: 8px;">(Obrigado!)</p>
-</div>            </div>
+                
+                <div style="margin-top: 25px; text-align: center;">
+                    <a href="https://livepix.gg/julyelpf" target="_blank" style="display: inline-block; background-color: #AA00AA; color: white; text-decoration: none; padding: 12px 24px; font-weight: bold; border-radius: 4px; border-bottom: 4px solid #440044; font-size: 0.95rem; transition: all 0.1s ease;" onmousedown="this.style.borderBottomWidth='0px'; this.style.marginTop='4px';" onmouseup="this.style.borderBottomWidth='4px'; this.style.marginTop='0px';" onmouseleave="this.style.borderBottomWidth='4px'; this.style.marginTop='0px';">
+                        💜 Abrir Página de Apoio Direta
+                    </a>
+                    <p style="font-size: 0.75rem; color: #666; margin-top: 8px;">(Use caso o painel acima não tenha carregado)</p>
+                </div>
+            </div>
         </section>
 
     </main>
 
-    <!-- SISTEMA SCRIPT DE NAVEGAÇÃO E VALIDAÇÃO -->
     <script>
+        // DISPARAR POP-UP ASSIM QUE CARREGAR A PÁGINA
+        window.onload = function() {
+            document.getElementById('welcomeModal').classList.add('show');
+        }
+
+        // FUNÇÃO PARA FECHAR O POP-UP
+        function closeModal() {
+            document.getElementById('welcomeModal').classList.remove('show');
+        }
+
         // FUNÇÃO DE BLOQUEIO DE ENCURTADORES
         function validarLink() {
             const urlInput = document.getElementById('linkDownload').value.toLowerCase();
             const errorBox = document.getElementById('linkError');
             
-            // Lista dos encurtadores conhecidos para bloquear
             const encurtadores = [
                 'bit.ly', 'adf.ly', 'adfly', 'cutt.ly', 'tinyurl.com', 'is.gd', 
                 'rebrand.ly', 'shorte.st', 'short.est', 't.co', 'ouo.io', 'shrinke.me',
                 'fly.io', 'migre.me', 'encurtador.com.br', 'bityli.com'
             ];
 
-            // Verifica se o link inserido contém alguma das palavras da lista
             const encontrouEncurtador = encurtadores.some(dominio => urlInput.includes(dominio));
 
             if (encontrouEncurtador) {
-                errorBox.style.display = 'block'; // Mostra o erro na tela
+                errorBox.style.display = 'block';
                 document.getElementById('linkDownload').focus();
-                return false; // Trava o envio do formulário
+                return false; 
             }
 
-            errorBox.style.display = 'none'; // Esconde se estiver tudo ok
-            return true; // Permite o envio
+            errorBox.style.display = 'none';
+            return true; 
         }
 
         // Função para alternar as abas/categorias
